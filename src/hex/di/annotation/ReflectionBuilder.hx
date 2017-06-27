@@ -103,7 +103,7 @@ class ReflectionBuilder
 			}
 
 			//method building
-			var postConstruct 		= ArrayUtil.find( method.annotations, e => e.annotationName == "PostConstruct" );
+			var postConstruct 		= ArrayUtil.find( method.annotations, function(e) e.annotationName == "PostConstruct" );
 			var preDestroy	 		= ArrayUtil.find( method.annotations, e => e.annotationName == "PreDestroy" );
 			var order : Null<Int> 	= 0;
 
