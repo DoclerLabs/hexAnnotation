@@ -7,7 +7,7 @@ import hex.di.reflect.ClassDescription;
 import hex.error.PrivateConstructorException;
 import hex.reflect.ClassReflectionData;
 
-using Lambda
+using Lambda;
 
 /**
  * ...
