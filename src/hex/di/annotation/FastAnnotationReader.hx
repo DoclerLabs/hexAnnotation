@@ -7,7 +7,7 @@ import hex.annotation.AnnotationReplaceBuilder;
 import hex.di.reflect.ClassDescription;
 import hex.error.PrivateConstructorException;
 import hex.reflect.ClassReflectionData;
-import hex.util.ArrayUtil;
+
 using Lambda;
 
 /**
@@ -55,7 +55,7 @@ class FastAnnotationReader
 		if ( hasBeenBuilt )
 		{
 			// get the existing data and remove them from the static_classes
-			var existingData = ArrayUtil.find(hex.reflect.ReflectionBuilder._static_classes, d => d.name == localClass.module);
+			var existingData = hex.reflect.ReflectionBuilder._static_classes.find( function(d) return d.name == localClass.module );
 			hex.reflect.ReflectionBuilder._static_classes.remove(existingData);
 			
 			// reflect new fields
