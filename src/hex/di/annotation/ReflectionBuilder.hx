@@ -56,9 +56,9 @@ class ReflectionBuilder
 		var propValues: Array<Expr> = [];
 		for ( property in data.properties )
 		{
-			var inject 				= ArrayUtil.find( property.annotations, function(e) e.annotationName == "Inject" );
+			var inject 				= ArrayUtil.find( property.annotations, function(e) return e.annotationName == "Inject" );
 			var key					= inject != null ? inject.annotationKeys[ 0 ] : "";
-			var optional 			= ArrayUtil.find( property.annotations, function(e) e.annotationName == "Optional" );
+			var optional 			= ArrayUtil.find( property.annotations, function(e) return e.annotationName == "Optional" );
 			var isOpt : Null<Bool> 	= optional != null ? optional.annotationKeys[ 0 ] : false;
 			
 			var eProp = EObjectDecl([
@@ -85,9 +85,9 @@ class ReflectionBuilder
 			var argData = method.arguments;
 			for ( j in 0...argData.length )
 			{
-				var inject 				= ArrayUtil.find( method.annotations, function(e) e.annotationName == "Inject" );
+				var inject 				= ArrayUtil.find( method.annotations, function(e) return e.annotationName == "Inject" );
 				var key 				= inject != null ? inject.annotationKeys[ j ] : "";
-				var optional 			= ArrayUtil.find( method.annotations, function(e) e.annotationName == "Optional" );
+				var optional 			= ArrayUtil.find( method.annotations, function(e) return e.annotationName == "Optional" );
 				var isOpt : Null<Bool> 	= optional != null ? optional.annotationKeys[ j ] : false;
 				
 				var eArg = EObjectDecl([
@@ -103,8 +103,8 @@ class ReflectionBuilder
 			}
 
 			//method building
-			var postConstruct 		= ArrayUtil.find( method.annotations, function(e) e.annotationName == "PostConstruct" );
-			var preDestroy	 		= ArrayUtil.find( method.annotations, function(e) e.annotationName == "PreDestroy" );
+			var postConstruct 		= ArrayUtil.find( method.annotations, function(e) return e.annotationName == "PostConstruct" );
+			var preDestroy	 		= ArrayUtil.find( method.annotations, function(e) return e.annotationName == "PreDestroy" );
 			var order : Null<Int> 	= 0;
 
 			if ( postConstruct != null )
@@ -159,9 +159,9 @@ class ReflectionBuilder
 		{
 			for ( i in 0...ctorAnn.arguments.length )
 			{
-				var inject 				= ArrayUtil.find( ctorAnn.annotations, function(e) e.annotationName == "Inject" );
+				var inject 				= ArrayUtil.find( ctorAnn.annotations, function(e) return e.annotationName == "Inject" );
 				var key 				= inject != null ? inject.annotationKeys[ i ] : "";
-				var optional 			= ArrayUtil.find( ctorAnn.annotations, function(e) e.annotationName == "Optional" );
+				var optional 			= ArrayUtil.find( ctorAnn.annotations, function(e) return e.annotationName == "Optional" );
 				var isOpt : Null<Bool> 	= optional != null ? optional.annotationKeys[ i ] : false;
 				
 				var eCtorArg = EObjectDecl([
