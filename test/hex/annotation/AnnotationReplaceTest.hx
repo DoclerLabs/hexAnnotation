@@ -120,7 +120,7 @@ class AnnotationReplaceTest
 			return null; 
 		};
 		
-		o.__ai( f, null );
+		o.acceptInjector( cast { getInstanceWithClassName: f } );
 	}
 	
 	@Test("Class description transformed with local vars")
@@ -134,7 +134,7 @@ class AnnotationReplaceTest
 			return null; 
 		};
 		
-		o.__ai( f, null );
+		o.acceptInjector( cast { getInstanceWithClassName: f });
 	}
 	
 	@Test("Class description transformed with FQCN")
@@ -148,7 +148,7 @@ class AnnotationReplaceTest
 			return null; 
 		};
 		
-		o.__ai( f, null );
+		o.acceptInjector( cast { getInstanceWithClassName: f } );
 	}
 	
 	// Expected reflected data:

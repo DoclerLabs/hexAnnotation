@@ -230,7 +230,7 @@ class IsLoggableTest
 	{
 		var loggable = new MockLoggableClassInjected();
 		var f = function( s: String, n: String, c: Class<Dynamic>, o: Bool ): Dynamic  return this.logger;
-		loggable.__ai( f, null );
+		loggable.acceptInjector( cast { getInstanceWithClassName: f } );
 		Assert.equals( this.logger, loggable.logger, "'MockLoggableClassInjected' should have reflection data for its logger property" );
 	}
 }

@@ -7,7 +7,7 @@ package hex.di;
 @:remove
 @:autoBuild( hex.di.annotation.AnnotationTransformer.readMetadata( hex.di.IInjectorContainer ) )
 #end
-interface IInjectorContainer
+interface IInjectorContainer extends IInjectorAcceptor
 {
 	
 }
