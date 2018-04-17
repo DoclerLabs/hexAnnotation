@@ -1,5 +1,12 @@
 package hex.log;
 
+import hex.di.ClassName;
+import hex.di.ClassRef;
+import hex.di.IDependencyInjector;
+import hex.di.IInjectorAcceptor;
+import hex.di.IInjectorListener;
+import hex.di.MappingName;
+import hex.di.provider.IDependencyProvider;
 import hex.unittest.assertion.Assert;
 
 /**
@@ -229,8 +236,117 @@ class IsLoggableTest
 	public function testInterfacesImplementationOrder() : Void
 	{
 		var loggable = new MockLoggableClassInjected();
-		var f = function( s: String, n: String, c: Class<Dynamic>, o: Bool ): Dynamic  return this.logger;
-		loggable.acceptInjector( cast { getInstanceWithClassName: f } );
+		loggable.acceptInjector( new MockDependencyInjector( this.logger ) );
 		Assert.equals( this.logger, loggable.logger, "'MockLoggableClassInjected' should have reflection data for its logger property" );
+	}
+}
+
+private class MockDependencyInjector implements IDependencyInjector
+{
+	var logger : MockLogger;
+	
+	public function new( logger ) 
+	{
+		this.logger = logger;
+	}
+	
+	public function getInstanceWithClassName<T>( s : ClassName, ?n : MappingName, c : Class<Dynamic> = null, o : Bool = true ) : T
+	{
+		return cast this.logger;
+	}
+	
+	public function hasMapping<T>( type : ClassRef<T>, ?name : MappingName ) : Bool
+	{
+		return false;
+	}
+	
+	public function hasDirectMapping<T>( type : ClassRef<T>, ?name : MappingName) : Bool
+	{
+		return false;
+	}
+	
+	public function satisfies<T>( type : ClassRef<T>, ?name : MappingName ) : Bool
+	{
+		return false;
+	}
+	
+	public function injectInto( target : IInjectorAcceptor ) : Void
+	{
+		
+	}
+	
+	public function getInstance<T>( type : ClassRef<T>, ?name : MappingName, targetType : Class<Dynamic> = null ) : T
+	{
+		return null;
+	}
+	
+	public function getOrCreateNewInstance<T>( type : Class<T> ) : T
+	{
+		return null;
+	}
+	
+	public function instantiateUnmapped<T>( type : Class<T> ) : T
+	{
+		return null;
+	}
+	
+	public function destroyInstance<T>( instance : T ) : Void
+	{
+		
+	}
+	
+	public function mapToValue<T>( clazz : ClassRef<T>, value : T, ?name : MappingName ) : Void
+	{
+		
+	}
+	
+	public function mapToType<T>( clazz : ClassRef<T>, type : Class<T>, ?name : MappingName ) : Void
+	{
+		
+	}
+	
+	public function mapToSingleton<T>( clazz : ClassRef<T>, type : Class<T>, ?name : MappingName ) : Void
+	{
+		
+	}
+	
+	public function unmap<T>( type : ClassRef<T>, ?name : MappingName ) : Void 
+	{
+		
+	}
+
+	public function addListener( listener: IInjectorListener ) : Bool
+	{
+		return false;
+	}
+
+	public function removeListener( listener: IInjectorListener ) : Bool
+	{
+		return false;
+	}
+	
+	public function getProvider<T>( className : ClassName, ?name : MappingName ) : IDependencyProvider<T>
+	{
+		return null;
+	}
+	
+	public function mapClassNameToValue<T>( className : ClassName, value : T, ?name : MappingName ) : Void
+	{
+		
+	}
+
+    public function mapClassNameToType<T>( className : ClassName, type : Class<T>, ?name : MappingName ) : Void
+	{
+		
+	}
+
+    public function mapClassNameToSingleton<T>( className : ClassName, type : Class<T>, ?name : MappingName ) : Void
+	{
+		
+	}
+	
+	public function unmapClassName( className : ClassName, ?name : MappingName ) : Void
+	{
+		
 	}
 }
