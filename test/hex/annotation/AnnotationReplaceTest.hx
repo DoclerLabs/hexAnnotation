@@ -120,21 +120,21 @@ class AnnotationReplaceTest
 	public function testReflectionTransformed()
 	{
 		var o = new MockMetadataClassWithInjectorContainer();
-		o.acceptInjector( new MockDependencyInjector() );
+		o.acceptInjector( new MockDependencyInjector1() );
 	}
 	
 	@Test("Class description transformed with local vars")
 	public function testClassReflectionTransformedWithLocalVars()
 	{
 		var o = new MockMetadataClassWithInjectorContainerWithLocalVars();
-		o.acceptInjector( new MockDependencyInjector() );
+		o.acceptInjector( new MockDependencyInjector2() );
 	}
 	
 	@Test("Class description transformed with FQCN")
 	public function testClassReflectionTransformedWithFQCN()
 	{
 		var o = new MockMetadataClassWithInjectorContainerWithFQCN();
-		o.acceptInjector( new MockDependencyInjector() );
+		o.acceptInjector( new MockDependencyInjector3() );
 	}
 	
 	// Expected reflected data:
@@ -245,6 +245,43 @@ class AnnotationReplaceTest
 		a:[], 
 		o:1
 	};
+}
+
+
+private class MockDependencyInjector1 extends MockDependencyInjector
+{
+	public function new() super();
+
+	override public function getInstanceWithClassName<T>( s1 : ClassName, ?s2 : MappingName, c : Class<Dynamic> = null, b : Bool = true ) : T
+	{
+		Assert.equals( MockConstants.NAME_THREE, s2 );
+		Assert.equals( MockConstants.BOOL_TRUE, !b );
+		return null; 
+	}
+}
+	
+private class MockDependencyInjector2 extends MockDependencyInjector
+{
+	public function new() super();
+	
+	override public function getInstanceWithClassName<T>( s1 : ClassName, ?s2 : MappingName, c : Class<Dynamic> = null, b : Bool = true ) : T
+	{
+		Assert.equals( MockMetadataClassWithInjectorContainerWithLocalVars.NAME_THREE, s2 );
+		Assert.equals( MockMetadataClassWithInjectorContainerWithLocalVars.BOOL_TRUE, !b );
+		return null; 
+	}
+}
+
+private class MockDependencyInjector3 extends MockDependencyInjector
+{
+	public function new() super();
+	
+	override public function getInstanceWithClassName<T>( s1 : ClassName, ?s2 : MappingName, c : Class<Dynamic> = null, b : Bool = true ) : T
+	{
+		Assert.equals( MockConstants.NAME_THREE, s2 );
+		Assert.equals( MockConstants.BOOL_TRUE, !b );
+		return null; 
+	}
 }
 
 private class MockDependencyInjector implements IDependencyInjector
