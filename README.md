@@ -6,7 +6,6 @@ Utilities for reading and writing class metadata
 
 ## Dependencies
 
-* [hexCore](https://github.com/DoclerLabs/hexCore)
 * [hexReflection](https://github.com/DoclerLabs/hexReflection)
 
 ## Features
