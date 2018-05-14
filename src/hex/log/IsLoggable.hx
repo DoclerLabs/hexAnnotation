@@ -1,7 +1,5 @@
 package hex.log;
 
-import hex.di.IInjectorContainer;
-
 /**
  * @author Francis Bourre
  */
