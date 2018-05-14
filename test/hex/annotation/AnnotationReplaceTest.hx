@@ -6,6 +6,13 @@ import hex.annotation.MockMetadataClass.MockMetadataClassWithInjectorContainer;
 import hex.annotation.MockMetadataClass.MockMetadataClassWithInjectorContainerWithFQCN;
 import hex.annotation.MockMetadataClass.MockMetadataClassWithInjectorContainerWithLocalVars;
 import hex.annotation.MockMetadataClass.MockMetadataClassWithLocalVars;
+import hex.di.ClassName;
+import hex.di.ClassRef;
+import hex.di.IDependencyInjector;
+import hex.di.IInjectorAcceptor;
+import hex.di.IInjectorListener;
+import hex.di.MappingName;
+import hex.di.provider.IDependencyProvider;
 import hex.unittest.assertion.Assert;
 
 /**
@@ -113,42 +120,21 @@ class AnnotationReplaceTest
 	public function testReflectionTransformed()
 	{
 		var o = new MockMetadataClassWithInjectorContainer();
-		var f = function( s1, s2, cl, b ) 
-		{
-			Assert.equals( MockConstants.NAME_THREE, s2 );
-			Assert.equals( MockConstants.BOOL_TRUE, !b );
-			return null; 
-		};
-		
-		o.__ai( f, null );
+		o.acceptInjector( new MockDependencyInjector1() );
 	}
 	
 	@Test("Class description transformed with local vars")
 	public function testClassReflectionTransformedWithLocalVars()
 	{
 		var o = new MockMetadataClassWithInjectorContainerWithLocalVars();
-		var f = function( s1, s2, cl, b ) 
-		{
-			Assert.equals( MockMetadataClassWithInjectorContainerWithLocalVars.NAME_THREE, s2 );
-			Assert.equals( MockMetadataClassWithInjectorContainerWithLocalVars.BOOL_TRUE, !b );
-			return null; 
-		};
-		
-		o.__ai( f, null );
+		o.acceptInjector( new MockDependencyInjector2() );
 	}
 	
 	@Test("Class description transformed with FQCN")
 	public function testClassReflectionTransformedWithFQCN()
 	{
 		var o = new MockMetadataClassWithInjectorContainerWithFQCN();
-		var f = function( s1, s2, cl, b ) 
-		{
-			Assert.equals( MockConstants.NAME_THREE, s2 );
-			Assert.equals( MockConstants.BOOL_TRUE, !b );
-			return null; 
-		};
-		
-		o.__ai( f, null );
+		o.acceptInjector( new MockDependencyInjector3() );
 	}
 	
 	// Expected reflected data:
@@ -259,4 +245,151 @@ class AnnotationReplaceTest
 		a:[], 
 		o:1
 	};
+}
+
+
+private class MockDependencyInjector1 extends MockDependencyInjector
+{
+	public function new() super();
+
+	override public function getInstanceWithClassName<T>( s1 : ClassName, ?s2 : MappingName, c : Class<Dynamic> = null, b : Bool = true ) : T
+	{
+		Assert.equals( MockConstants.NAME_THREE, s2 );
+		Assert.equals( MockConstants.BOOL_TRUE, !b );
+		return null; 
+	}
+}
+	
+private class MockDependencyInjector2 extends MockDependencyInjector
+{
+	public function new() super();
+	
+	override public function getInstanceWithClassName<T>( s1 : ClassName, ?s2 : MappingName, c : Class<Dynamic> = null, b : Bool = true ) : T
+	{
+		Assert.equals( MockMetadataClassWithInjectorContainerWithLocalVars.NAME_THREE, s2 );
+		Assert.equals( MockMetadataClassWithInjectorContainerWithLocalVars.BOOL_TRUE, !b );
+		return null; 
+	}
+}
+
+private class MockDependencyInjector3 extends MockDependencyInjector
+{
+	public function new() super();
+	
+	override public function getInstanceWithClassName<T>( s1 : ClassName, ?s2 : MappingName, c : Class<Dynamic> = null, b : Bool = true ) : T
+	{
+		Assert.equals( MockConstants.NAME_THREE, s2 );
+		Assert.equals( MockConstants.BOOL_TRUE, !b );
+		return null; 
+	}
+}
+
+private class MockDependencyInjector implements IDependencyInjector
+{
+	public function new() 
+	{
+		
+	}
+	
+	public function hasMapping<T>( type : ClassRef<T>, ?name : MappingName ) : Bool
+	{
+		return false;
+	}
+	
+	public function hasDirectMapping<T>( type : ClassRef<T>, ?name : MappingName) : Bool
+	{
+		return false;
+	}
+	
+	public function satisfies<T>( type : ClassRef<T>, ?name : MappingName ) : Bool
+	{
+		return false;
+	}
+	
+	public function injectInto( target : IInjectorAcceptor ) : Void
+	{
+		
+	}
+	
+	public function getInstance<T>( type : ClassRef<T>, ?name : MappingName, targetType : Class<Dynamic> = null ) : T
+	{
+		return null;
+	}
+	
+	public function getInstanceWithClassName<T>( s1 : ClassName, ?s2 : MappingName, c : Class<Dynamic> = null, b : Bool = true ) : T
+	{
+		Assert.equals( MockConstants.NAME_THREE, s2 );
+		Assert.equals( MockConstants.BOOL_TRUE, !b );
+		return null; 
+	}
+	
+	public function getOrCreateNewInstance<T>( type : Class<T> ) : T
+	{
+		return null;
+	}
+	
+	public function instantiateUnmapped<T>( type : Class<T> ) : T
+	{
+		return null;
+	}
+	
+	public function destroyInstance<T>( instance : T ) : Void
+	{
+		
+	}
+	
+	public function mapToValue<T>( clazz : ClassRef<T>, value : T, ?name : MappingName ) : Void
+	{
+		
+	}
+	
+	public function mapToType<T>( clazz : ClassRef<T>, type : Class<T>, ?name : MappingName ) : Void
+	{
+		
+	}
+	
+	public function mapToSingleton<T>( clazz : ClassRef<T>, type : Class<T>, ?name : MappingName ) : Void
+	{
+		
+	}
+	
+	public function unmap<T>( type : ClassRef<T>, ?name : MappingName ) : Void 
+	{
+		
+	}
+
+	public function addListener( listener: IInjectorListener ) : Bool
+	{
+		return false;
+	}
+
+	public function removeListener( listener: IInjectorListener ) : Bool
+	{
+		return false;
+	}
+	
+	public function getProvider<T>( className : ClassName, ?name : MappingName ) : IDependencyProvider<T>
+	{
+		return null;
+	}
+	
+	public function mapClassNameToValue<T>( className : ClassName, value : T, ?name : MappingName ) : Void
+	{
+		
+	}
+
+    public function mapClassNameToType<T>( className : ClassName, type : Class<T>, ?name : MappingName ) : Void
+	{
+		
+	}
+
+    public function mapClassNameToSingleton<T>( className : ClassName, type : Class<T>, ?name : MappingName ) : Void
+	{
+		
+	}
+	
+	public function unmapClassName( className : ClassName, ?name : MappingName ) : Void
+	{
+		
+	}
 }

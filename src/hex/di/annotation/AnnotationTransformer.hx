@@ -82,7 +82,7 @@ class AnnotationTransformer
 		
 		AnnotationTransformer._map.set( className, true );
 		
-		var f = fields.filter( function ( f ) { return f.name == "__ai" || f.name == "__ac" || f.name == "__ap"; } );
+		var f = fields.filter( function ( f ) { return f.name == "acceptInjector" || f.name == "__ac" || f.name == "__ap"; } );
 		
 		//remove existing reflection data
 		if ( f.length != 0 ) for ( removedField in f ) fields.remove( removedField );
