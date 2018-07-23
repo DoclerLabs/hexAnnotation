@@ -143,8 +143,8 @@ class FastInjectionBuilder
 
 		applyClassInjection = macro function g( instance : Dynamic, f : hex.di.annotation.InjectorCall ) : Void { $b { expressions }; };
 		
-		var aiAccess = _isOverriden( 'acceptInjector' ) ? [ Access.APublic, Access.APublic, Access.AOverride ] : [ Access.APublic, Access.APublic ];
-		var apAccess = _isOverriden( '__ap' ) ? [ Access.APublic, Access.APublic, Access.AOverride ] : [ Access.APublic, Access.APublic ];
+		var aiAccess = _isOverriden( 'acceptInjector' ) ? [ Access.APublic, Access.AOverride ] : [ Access.APublic ];
+		var apAccess = _isOverriden( '__ap' ) ? [ Access.APublic, Access.AOverride ] : [ Access.APublic ];
 		//expressions.push( macro trace( this ) );
 		fields.push(
 		{
