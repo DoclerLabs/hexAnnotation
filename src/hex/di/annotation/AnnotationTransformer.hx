@@ -4,11 +4,11 @@ import haxe.macro.Context;
 import haxe.macro.Expr;
 import haxe.macro.Expr.Field;
 import hex.annotation.AnnotationReplaceBuilder;
-import hex.error.PrivateConstructorException;
 import hex.reflect.ClassReflectionData;
 import hex.util.MacroUtil;
 
 using Lambda;
+using hex.error.Error;
 
 /**
  * ...

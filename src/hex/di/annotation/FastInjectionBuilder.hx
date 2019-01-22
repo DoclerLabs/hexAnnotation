@@ -11,6 +11,7 @@ import hex.reflect.ClassReflectionData;
 import hex.util.MacroUtil;
 
 using Lambda;
+using hex.error.Error;
 #end
 
 /**
@@ -19,7 +20,7 @@ using Lambda;
  */
 class FastInjectionBuilder
 {
-	/** @private */ function new() throw new hex.error.PrivateConstructorException( "This class can't be instantiated." );
+	/** @private */ function new() throw new PrivateConstructorException( "This class can't be instantiated." );
 
 	#if macro
 	static public function _generateInjectionProcessorExpr( fields : Array<Field>, data : ClassReflectionData ) : Void
