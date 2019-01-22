@@ -4,10 +4,10 @@ import haxe.macro.Context;
 import haxe.macro.Expr;
 import haxe.macro.Printer;
 import hex.di.annotation.AnnotationTransformer;
-import hex.error.PrivateConstructorException;
 import hex.util.MacroUtil;
 
 using haxe.macro.Tools;
+using hex.error.Error;
 
 /**
  * ...
