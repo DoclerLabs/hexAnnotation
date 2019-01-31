@@ -20,7 +20,7 @@ using hex.error.Error;
  */
 class FastInjectionBuilder
 {
-	/** @private */ function new() throw new PrivateConstructorException( "This class can't be instantiated." );
+	/** @private */ function new() throw new PrivateConstructorException();
 
 	#if macro
 	static public function _generateInjectionProcessorExpr( fields : Array<Field>, data : ClassReflectionData ) : Void

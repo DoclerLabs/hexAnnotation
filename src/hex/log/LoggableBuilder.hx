@@ -23,11 +23,7 @@ class LoggableBuilder
 	public static inline var ErrorAnnotation 	= "Error";
 	public static inline var FatalAnnotation 	= "Fatal";
 	
-	/** @private */
-    function new()
-    {
-        throw new PrivateConstructorException( "This class can't be instantiated." );
-    }
+	/** @private */ function new() throw new PrivateConstructorException();
 	
 	macro static public function build() : Array<Field> 
 	{
